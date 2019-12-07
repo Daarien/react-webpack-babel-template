@@ -21,7 +21,7 @@ const common = dev => ({
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: "babel-loader"
+        use: ["babel-loader", "astroturf/loader"]
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
@@ -63,7 +63,7 @@ const development = {
     rules: [
       {
         test: /\.(sa|sc|c)ss$/,
-        use: ["style-loader", "css-loader", "sass-loader"]
+        use: ["style-loader", "astroturf/css-loader", "sass-loader"]
       }
     ]
   },

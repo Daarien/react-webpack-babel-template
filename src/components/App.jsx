@@ -1,6 +1,7 @@
 import React from "react";
 import "../assets/styles/style2.scss";
 import logo from "../assets/img/logo.svg";
+import Cube from "./Cube";
 
 export default class App extends React.Component {
   render() {
@@ -14,6 +15,7 @@ export default class App extends React.Component {
           <p>Some text</p>
           <button>Click me!</button>
         </main>
+        <Cube />
       </div>
     );
   }
