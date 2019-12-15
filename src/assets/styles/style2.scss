@@ -27,3 +27,13 @@ main {
     transform: rotate(360deg);
   }
 }
+
+.hovered-block {
+  padding: 20px;
+  color: white;
+  background-color: lightblue;
+  &:hover {
+    background-color: lightgreen;
+  }
+  transition: background-color 300ms;
+}

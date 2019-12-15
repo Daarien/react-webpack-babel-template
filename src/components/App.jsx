@@ -1,6 +1,7 @@
-import React from "react";
-import "../assets/styles/style2.scss";
-import logo from "../assets/img/logo.svg";
+import React from 'react';
+import Comp from './Comp';
+import '../assets/styles/style2.scss';
+import logo from '../assets/img/logo.svg';
 
 export default class App extends React.Component {
   render() {
@@ -14,6 +15,9 @@ export default class App extends React.Component {
           <p>Some text</p>
           <button>Click me!</button>
         </main>
+        <footer>
+          <Comp />
+        </footer>
       </div>
     );
   }
