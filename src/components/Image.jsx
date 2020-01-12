@@ -21,7 +21,8 @@ export default function AnimatedImage() {
   return (
     <div
       css={`
-        perspective: 100px;
+        perspective: 1000px;
+        transform-style: preserve-3d;
       `}
     >
       <img src={Logo} alt="img" css={styles} />

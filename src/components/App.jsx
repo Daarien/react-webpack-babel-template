@@ -3,6 +3,7 @@ import "../assets/styles/style2.scss";
 import logo from "../assets/img/logo.svg";
 import StyledButton from "./Button";
 import Image from "./Image";
+import { CircleSpinner, BoxesSpinner, Pulse } from "./Loaders/index";
 
 export default class App extends React.Component {
   render() {
@@ -19,6 +20,10 @@ export default class App extends React.Component {
           <StyledButton>StyledComponentsButton</StyledButton>
           <p>Rotating logo image</p>
           <Image />
+          <p>Spinners</p>
+          <div>
+            <CircleSpinner size={50} />
+          </div>
         </main>
       </div>
     );
