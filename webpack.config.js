@@ -1,60 +1,62 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const merge = require("webpack-merge");
-const path = require("path");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const merge = require('webpack-merge');
+const path = require('path');
 
-const devMode = process.env.NODE_ENV !== "production";
+const devMode = process.env.NODE_ENV !== 'production';
 
 // ====== COMMON CONFIG ======
 const common = dev => ({
-  entry: __dirname + "/src/index.js",
+  entry: path.resolve(__dirname, 'src/index.js'),
   output: {
-    path: __dirname + "/dist",
-    filename: dev ? "bundle.js" : "[name].[hash].js"
+    publicPath: '/',
+    path: path.resolve(__dirname, 'dist'),
+    filename: dev ? 'bundle.js' : '[name].[hash].js',
   },
   resolve: {
-    extensions: [".js", ".jsx"]
+    extensions: ['.js', '.jsx'],
   },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: "babel-loader"
+        use: 'babel-loader',
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
         use: [
           {
-            loader: "file-loader",
+            loader: 'file-loader',
             options: {
-              outputPath: "assets/img",
-              name: dev ? "[name].[ext]" : "[hash].[ext]"
-            }
-          }
-        ]
+              outputPath: 'assets/img',
+              name: dev ? '[name].[ext]' : '[hash].[ext]',
+            },
+          },
+        ],
       },
       {
         test: /\.woff$|\.woff2?$|\.ttf$|\.eot$|\.otf$/,
         use: [
           {
-            loader: "file-loader",
+            loader: 'file-loader',
             options: {
-              outputPath: "assets/fonts",
-              name: "[path][name].[ext]"
-            }
-          }
-        ]
-      }
-    ]
+              outputPath: 'assets/fonts',
+              name: '[path][name].[ext]',
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: "public/index.html"
-    })
-  ]
+      template: 'public/index.html',
+      favicon: 'public/favicon.ico',
+    }),
+  ],
 });
 
 // ====== DEVELOPMENT CONFIG ======
@@ -63,16 +65,16 @@ const development = {
     rules: [
       {
         test: /\.(sa|sc|c)ss$/,
-        use: ["style-loader", "css-loader", "sass-loader"]
-      }
-    ]
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+    ],
   },
-  devtool: "inline-source-map",
+  devtool: 'inline-source-map',
   devServer: {
     port: 3000,
     hot: true,
-    open: true
-  }
+    open: true,
+  },
 };
 
 // ====== PRODUCTION CONFIG ======
@@ -84,31 +86,31 @@ const production = {
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
-            options: {}
+            options: {},
           },
-          "css-loader",
-          "sass-loader"
-        ]
-      }
-    ]
+          'css-loader',
+          'sass-loader',
+        ],
+      },
+    ],
   },
-  devtool: "source-map",
+  devtool: 'source-map',
   optimization: {
     splitChunks: {
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
-          name: "vendors",
-          chunks: "all"
-        }
-      }
-    }
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "[name].[hash].css"
-    })
-  ]
+      filename: '[name].[hash].css',
+    }),
+  ],
 };
 
 const watch = {
@@ -118,24 +120,24 @@ const watch = {
         test: /\.(sa|sc|c)ss$/,
         use: [
           {
-            loader: MiniCssExtractPlugin.loader
+            loader: MiniCssExtractPlugin.loader,
           },
-          "css-loader",
-          "sass-loader"
-        ]
-      }
-    ]
+          'css-loader',
+          'sass-loader',
+        ],
+      },
+    ],
   },
-  devtool: "source-map",
-  plugins: [new MiniCssExtractPlugin()]
+  devtool: 'source-map',
+  plugins: [new MiniCssExtractPlugin()],
 };
 
-module.exports = (env, { mode = "none" }) => {
-  console.log("TCL: mode", mode);
+module.exports = (env, { mode = 'none' }) => {
+  console.log('TCL: mode', mode);
   const dev = true;
-  if (mode === "development") {
+  if (mode === 'development') {
     return merge(common(dev), development, { mode });
-  } else if (mode === "production") {
+  } else if (mode === 'production') {
     return merge(common(!dev), production, { mode });
   } else return merge(common(dev), watch, { mode });
 };
